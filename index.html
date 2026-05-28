@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @font-face {
+    font-family: 'PixelPurl';
+    src: local('PixelPurl'); 
+  }
+
+  :root {
+    --off-white: #faf9f7;
+    --white: #ffffff;
+    --black: #111111;
+    --soft-black: #222222;
+    --mid: #555555;
+    --light-mid: #888888;
+    --pink: #f2c4ce;
+    --pink-light: #fbeef1;
+    --pink-dark: #d4899a;
+    --pink-accent: #e8a0b0;
+    --border: #e0dcd8;
+    --pixel: 'PixelPurl', 'VT323', monospace;
+    --body: 'Helvetica', 'Arial', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--off-white);
+    color: var(--black);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(250,249,247,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .nav-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--black);
+  }
+
+  .nav-logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-family: var(--body);
+    font-size: 0.95rem;
+    color: var(--mid);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--black); }
+
+  /* hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--black);
+    transition: all 0.3s;
+  }
+
+  /* ── MOBILE NAV OVERLAY ── */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: var(--off-white);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: var(--body);
+    font-size: 2rem;
+    color: var(--black);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .mobile-nav a:hover { color: var(--pink-dark); }
+  .mobile-nav-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 4rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--black);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .hero-greeting {
+    font-family: var(--body);
+    font-size: 1.1rem;
+    color: var(--pink-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-name {
+    font-family: var(--pixel);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--pink);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-tagline {
+    font-family: var(--body);
+    font-size: 1.05rem;
+    color: var(--mid);
+    max-width: 600px;
+    margin: 0rem 0 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-tagline span.tag {
+    display: inline-block;
+    background: var(--pink-light);
+    color: var(--pink-dark);
+    padding: 1px 8px;
+    border-radius: 3px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn {
+    font-family: var(--body);
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    padding: 0.75rem 2rem;
+    border-radius: 99px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--black);
+    color: var(--white);
+    border: 1px solid var(--black);
+  }
+  .btn-primary:hover {
+    background: var(--soft-black);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--black);
+    border: 1px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-ghost:hover {
+    border-color: var(--black);
+  }
+
+  /* ── BINARY BACKGROUND CANVAS ── */
+  #binaryCanvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--body);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pink-dark);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 0 0 32px;
+    height: 1px;
+    background: var(--pink-accent);
+  }
+
+  .section-title {
+    font-family: var(--body);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--black);
+    margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--mid);
+    margin-bottom: 1.2rem;
+    font-size: 1.05rem;
+    line-height: 1.85;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .skill-tag {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.9rem;
+    border: 0.5px solid var(--border);
+    border-radius: 99px;
+    color: var(--mid);
+    letter-spacing: 0.03em;
+    background: var(--white);
+    transition: all 0.2s;
+  }
+
+  .skill-tag:hover {
+    border-color: var(--pink-dark);
+    color: var(--pink-dark);
+    background: var(--pink-light);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 0.5px;
+    background: var(--border);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── PROJECTS FILTER ── */
+  .projects-filter {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--white);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .filter-btn img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--pink-accent);
+    background: var(--pink-light);
+    transform: scale(1.05);
+  }
+
+  /* ── PROJECT CARDS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    border: 0.5px solid var(--border);
+    background: var(--white);
+    border-radius: 8px;
+    padding: 1.8rem;
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-card:hover {
+    border-color: var(--pink-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  }
+
+  .project-card.hidden {
+    display: none;
+  }
+
+  .project-type {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pink-dark);
+  }
+
+  .project-title {
+    font-family: var(--body);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  .project-meta {
+    font-size: 0.8rem;
+    color: var(--light-mid);
+    margin-top: auto;
+    padding-top: 0.5rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .click-link-img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    transition: transform 0.2s;
+  }
+
+  .click-link-img:hover {
+    transform: scale(1.15);
+  }
+
+  /* past projects */
+  .past-projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .past-project-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.6rem 0;
+    border-bottom: 0.5px solid var(--border);
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .past-project-row:first-child { border-top: 0.5px solid var(--border); }
+  .past-project-row:hover { background: var(--pink-light); padding-left: 0.5rem; padding-right: 0.5rem; border-radius: 4px; }
+
+  .past-project-left .role {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pink-dark);
+    margin-bottom: 0.3rem;
+  }
+
+  .past-project-left .name {
+    font-family: var(--body);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--black);
+  }
+
+  .past-project-left .note {
+    font-size: 0.85rem;
+    color: var(--light-mid);
+    margin-top: 0.2rem;
+  }
+
+  .past-project-icon-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+  }
+  .past-project-icon-link:hover {
+    transform: scale(1.1);
+  }
+
+  /* ── CONTACT ── */
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-text p {
+    font-size: 1.05rem;
+    color: var(--mid);
+    line-height: 1.85;
+    margin-bottom: 1.2rem;
+  }
+
+  .email-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+  }
+
+  .email-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+  }
+
+  .email-link {
+    font-family: var(--body);
+    font-size: 1.1rem;
+    color: var(--black);
+    text-decoration: none;
+    border-bottom: 1px solid var(--pink-accent);
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+  }
+
+  .email-link:hover { border-color: var(--pink-dark); }
+
+  .socials {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--mid);
+    text-decoration: none;
+    padding: 0.7rem 0;
+    border-bottom: 0.5px solid var(--border);
+    transition: color 0.2s;
+  }
+
+  .social-link:hover { color: var(--black); }
+
+  .social-platform {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--light-mid);
+    min-width: 80px;
+  }
+
+  .inline-social-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    transition: transform 0.2s;
+  }
+  .social-link:hover .inline-social-icon {
+    transform: scale(1.1);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 0.5px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  footer p {
+    font-size: 0.82rem;
+    color: var(--light-mid);
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+
+  .footer-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    transition: transform 0.2s;
+  }
+
+  .footer-icon:hover {
+    transform: translateY(-4px) scale(1.1);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .fade-in-1 { animation-delay: 0.1s; }
+  .fade-in-2 { animation-delay: 0.25s; }
+  .fade-in-3 { animation-delay: 0.4s; }
+  .fade-in-4 { animation-delay: 0.55s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .mobile-nav-close { right: 1.5rem; }
+
+    .hero { padding: 7rem 1.5rem 4rem; }
+    section { padding: 4rem 1.5rem; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+
+    footer { padding: 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo-container" onclick="window.location.reload();">
+    <img src="computer.png" alt="Computer Logo" class="nav-logo-img">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#projects">currently</a></li>
+    <li><a href="#past">work</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <button class="hamburger" onclick="openMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="closeMenu()" aria-label="Close">✕</button>
+  <a href="#about" onclick="closeMenu()">about</a>
+  <a href="#projects" onclick="closeMenu()">currently</a>
+  <a href="#past" onclick="closeMenu()">work</a>
+  <a href="#contact" onclick="closeMenu()">contact</a>
+</div>
+
+<header class="hero">
+  <canvas id="binaryCanvas"></canvas>
+  <p class="hero-greeting fade-in fade-in-1">سلام — hello, world.</p>
+  <h1 class="hero-name fade-in fade-in-2">
+    Rania Nasir Bajwa
+  </h1>
+  <p class="hero-tagline fade-in fade-in-3">
+    Designer &amp; developer from <span class="tag">Lahore, Pakistan</span>
+  </p>
+  <div class="hero-cta fade-in fade-in-4">
+    <a href="#projects" class="btn btn-primary">view work</a>
+    <a href="mailto:rnb7@student.london.ac.uk" class="btn btn-ghost">
+      <img src="email.png" alt="Mail" style="width:30px; height:30px;">
+      get in touch
+    </a>
+  </div>
+
+</header>
+
+<section id="about">
+  <div class="section-label">about</div>
+  <h2 class="section-title">A little about me</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm Rania Bajwa, a Computer Science student, self taught designer, and builder from Lahore, Pakistan. Currently studying at Goldsmiths, University of London; BSc Computer Science with Artificial Intelligence and Machine Learning; Class of 2028.
+      </p>
+      <p>
+        I'm experienced in JavaScript, p5.js, HTML &amp; CSS for building interactive interfaces, and bring a strong eye for design through Figma and the Adobe Suite — covering UI/UX, graphic design, and digital media.
+      </p>
+      <p>
+        When I'm not coding or designing, I'm probably exploring new coffee shops in Lahore, chasing cats, or learning about whatever's new in tech and design. I believe the best digital experiences live at the intersection of craft and curiosity.
+      </p>
+      <div class="skills-list">
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">p5.js</span>
+        <span class="skill-tag">HTML &amp; CSS</span>
+        <span class="skill-tag">Figma</span>
+        <span class="skill-tag">Adobe Suite</span>
+        <span class="skill-tag">UI/UX; Figma</span>
+        <span class="skill-tag">Graphic Design</span>
+        <span class="skill-tag">AI &amp; ML</span>
+        <span class="skill-tag">Social Media</span>
+        <span class="skill-tag">Social Media Marketing</span>
+        <span class="skill-tag">Coffee &amp; Matcha Critic</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="projects">
+  <div class="section-label">work</div>
+  <h2 class="section-title">Current projects</h2>
+
+  <div class="projects-filter">
+    <button class="filter-btn active" onclick="filterProjects('all', this)" title="All Projects">
+      <span style="font-family: var(--pixel); font-size: 1.2rem; font-weight: bold; padding: 0 0.4rem;">ALL</span>
+    </button>
+    <button class="filter-btn" onclick="filterProjects('tech', this)" title="Tech Projects">
+      <img src="tech.png" alt="Tech">
+    </button>
+    <button class="filter-btn" onclick="filterProjects('design', this)" title="Design Projects">
+      <img src="design.png" alt="Design">
+    </button>
+  </div>
+
+  <div class="projects-grid">
+    <div class="project-card" data-category="tech">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="project-type">Tech</span>
+      </div>
+      <h3 class="project-title">Project 012</h3>
+      <p class="project-desc">Building an app or website every single month this year — a commitment to shipping, learning, and growing in public. 12 months, 12 projects.</p>
+      <div class="project-meta">Jan 2026 — Present</div>
+    </div>
+
+    <div class="project-card" data-category="design">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="project-type">Design</span>
+      </div>
+      <h3 class="project-title">Creative Associate<br>@ The Saari Girl</h3>
+      <p class="project-desc">Working as a creative associate, contributing to visual identity, digital content, and design direction for the brand.</p>
+      <div class="project-meta">Jan 2026 - Present</div>
+    </div>
+
+    <div class="project-card" data-category="design">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="project-type">Design</span>
+      </div>
+      <h3 class="project-title">Graphic Designer</h3>
+      <p class="project-desc">Taking on independent graphic design projects — branding, digital media, and visual communication — with a reach of 200k+ across social platforms.</p>
+      <div class="project-meta">Ongoing</div>
+      <div class="project-links">
+        <a href="https://www.instagram.com/raniidesigns" target="_blank" rel="noopener">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+        <a href="https://www.behance.net/raniabajwa" target="_blank" rel="noopener">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+    <div class="project-card" data-category="tech">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="project-type">Tech</span>
+      </div>
+      <h3 class="project-title">CS Portfolio @ GitHub</h3>
+      <p class="project-desc">A growing collection of code — from interactive JavaScript experiments with p5.js to AI/ML coursework. Explore the repos for the full picture.</p>
+      <div class="project-meta">Ongoing</div>
+      <div class="project-links">
+        <a href="https://github.com/raniicodes" target="_blank" rel="noopener">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="past">
+  <div class="section-label">past work</div>
+  <h2 class="section-title" style="margin-bottom: 1.5rem;">Past projects</h2>
+  
+  <div class="projects-filter">
+    <button class="filter-btn active" onclick="filterPastProjects('all', this)" title="All Past Work">
+      <span style="font-family: var(--pixel); font-size: 1.2rem; font-weight: bold; padding: 0 0.4rem;">ALL</span>
+    </button>
+    <button class="filter-btn" onclick="filterPastProjects('tech', this)" title="Past Tech Work">
+      <img src="tech.png" alt="Tech">
+    </button>
+    <button class="filter-btn" onclick="filterPastProjects('design', this)" title="Past Design Work">
+      <img src="design.png" alt="Design">
+    </button>
+    <button class="filter-btn" onclick="filterPastProjects('photography', this)" title="Past Photography Work">
+      <img src="camera.png" alt="Photography">
+    </button>
+  </div>
+
+  <div class="past-projects-list">
+    <div class="past-project-row" data-past-category="design">
+      <div class="past-project-left">
+        <div class="role">Graphic Designer</div>
+        <div class="name">Fresh Grounds Lahore</div>
+        <div class="note">Designed and developed the visual identity for Fresh Grounds Pop-Up: The Tropical Edition across social media content, branding assets, packaging, and promotional material.</div>
+      </div>
+      <div class="project-links">
+        <a href="https://www.behance.net/gallery/249945811/FRESH-GROUNDS-X-KAF-X-ICED-LABAS" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+    <div class="past-project-row" data-past-category="design">
+      <div class="past-project-left">
+        <div class="role">Creative Director & Designer</div>
+        <div class="name">KhanAbad Farms</div>
+        <div class="note">Led end-to-end creative direction for Khan Abad Farms, designing a cohesive visual identity across Instagram, packaging, print, and pop-up experiences.</div>
+      </div>
+      <div class="project-links">
+        <a href="https://www.instagram.com/khanabadfarms/" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+    <div class="past-project-row" data-past-category="design">
+      <div class="past-project-left">
+        <div class="role">Graphic Designer</div>
+        <div class="name">Sucrè Lahore</div>
+        <div class="note">Conceptualised, creative directed, and designed Sucrè’s pop-up, “The Froth Lab,” attracting 150+ customers.</div>
+      </div>
+       <div class="project-links">
+        <a href="https://www.behance.net/gallery/247855743/sucre-x-icedlaba-x-khanabad" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+    <div class="past-project-row" data-past-category="tech">
+      <div class="past-project-left">
+        <div class="role">Information Technology Intern </div>
+        <div class="name">Matrix Management Consultants Pvt. Ltd.</div>
+        <div class="note">Supported construction workflows by coordinating with technical teams and applying digital tools to improve operational efficiency and processes.</div>
+      </div>
+      <div class="project-links"></div>
+    </div>
+
+    <div class="past-project-row" data-past-category="design">
+      <div class="past-project-left">
+        <div class="role">PR, Social Media & Digital Content Intern </div>
+        <div class="name">The Saari Girl</div>
+        <div class="note">Supported PR, influencer outreach, and client management while contributing to digital storytelling, content creation, and brand growth across social platforms.</div>
+      </div>
+      <div class="project-links"></div>
+    </div>
+
+    <div class="past-project-row" data-past-category="design">
+      <div class="past-project-left">
+        <div class="role">Director of Graphic Design</div>
+        <div class="name">Lahore Astronomical Society</div>
+        <div class="note">Led visual design and creative direction for the Pakistan Astronomical Journal, creating engaging graphics and content to communicate astronomy concepts.</div>
+      </div>
+      <div class="project-links"></div>
+    </div>
+
+    <div class="past-project-row" data-past-category="tech">
+      <div class="past-project-left">
+        <div class="role">Figma - Conceptual</div>
+        <div class="name">Monetix UI</div>
+      </div>
+       <div class="project-links">
+        <a href="https://www.behance.net/gallery/216192287/Monetix-UI" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+     <div class="past-project-row" data-past-category="tech">
+      <div class="past-project-left">
+        <div class="role">Figma - Conceptual</div>
+        <div class="name">Queue App Design</div>
+      </div>
+       <div class="project-links">
+        <a href="https://www.behance.net/gallery/196686473/Queue-App-Design" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+    <div class="past-project-row" data-past-category="tech">
+      <div class="past-project-left">
+        <div class="role">Figma - Conceptual</div>
+        <div class="name">Burger King App Loading UI</div>
+      </div>
+       <div class="project-links">
+        <a href="https://www.behance.net/gallery/161817007/Burger-King-Animation" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+    <div class="past-project-row" data-past-category="photography">
+      <div class="past-project-left">
+        <div class="role">Concert Photography</div>
+        <div class="name">Hasan Raheem</div>
+      </div>
+       <div class="project-links">
+        <a href="https://www.behance.net/gallery/226969633/Hasan-Raheem-Concert-Photography" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+    <div class="past-project-row" data-past-category="photography">
+      <div class="past-project-left">
+        <div class="role">Concert Photography</div>
+        <div class="name">Bayaan</div>
+      </div>
+       <div class="project-links">
+        <a href="https://www.behance.net/gallery/226972847/Bayaan-Concert-Photography" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+    <div class="past-project-row" data-past-category="photography">
+      <div class="past-project-left">
+        <div class="role">Concert Photography</div>
+        <div class="name">Taha G</div>
+      </div>
+       <div class="project-links">
+        <a href="https://www.behance.net/gallery/226969423/Taha-G-Concert-Photography" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+    <div class="past-project-row" data-past-category="photography">
+      <div class="past-project-left">
+        <div class="role">Concert Photography</div>
+        <div class="name">RDB</div>
+      </div>
+       <div class="project-links">
+        <a href="https://www.behance.net/gallery/226970613/RDB-Concert-Photography" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+     <div class="past-project-row" data-past-category="photography">
+      <div class="past-project-left">
+        <div class="role">Food Marketing</div>
+        <div class="name">Photography</div>
+      </div>
+       <div class="project-links">
+        <a href="https://www.behance.net/gallery/226971849/Food-Photography" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+    <div class="past-project-row" data-past-category="photography">
+      <div class="past-project-left">
+        <div class="role">Conceptual Photography</div>
+        <div class="name">Burn the Bias</div>
+      </div>
+       <div class="project-links">
+        <a href="https://www.behance.net/gallery/226972715/Burn-the-Bias-Concept-Photography" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+    <div class="past-project-row" data-past-category="photography">
+      <div class="past-project-left">
+        <div class="role">Advertisement</div>
+        <div class="name">Tony & Guy Lahore</div>
+      </div>
+       <div class="project-links">
+        <a href="https://www.behance.net/gallery/226968711/Tony-Guy-Lahore-Advertisement" target="_blank" rel="noopener" class="past-project-icon-link">
+          <img src="click.png" alt="Link" class="click-link-img">
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="contact">
+  <div class="section-label">contact</div>
+  <h2 class="section-title">Let's connect</h2>
+  <div class="contact-inner">
+    <div class="contact-text">
+      <p>Always happy to talk design, tech, creative collaborations, or just good coffee recommendations. Reach out below.</p>
+      <div class="email-container">
+        <a href="mailto:rnb7@student.london.ac.uk" class="email-link">
+          <img src="email.png" alt="Email Icon" class="email-icon">
+        </a>
+      </div>
+    </div>
+    <div>
+      <div class="socials">
+        <a href="https://www.instagram.com/raniidesigns" target="_blank" rel="noopener" class="social-link">
+          <img src="instagram.png" alt="insta" class="inline-social-icon">
+          <span class="social-platform">Instagram</span>
+          @raniidesigns
+        </a>
+        <a href="https://www.behance.net/raniabajwa" target="_blank" rel="noopener" class="social-link">
+          <img src="behance.png" alt="Behance" class="inline-social-icon">
+          <span class="social-platform">Behance</span>
+          @raniabajwa
+        </a>
+        <a href="https://github.com/raniicodes" target="_blank" rel="noopener" class="social-link">
+          <img src="github.png" alt="GitHub" class="inline-social-icon">
+          <span class="social-platform">GitHub</span>
+          @raniicodes
+        </a>
+        <a href="https://www.linkedin.com/in/rania-bajwa-70908138a/" target="_blank" rel="noopener" class="social-link">
+          <img src="linkedin.png" alt="LinkedIn" class="inline-social-icon">
+          <span class="social-platform">LinkedIn</span>
+          @rania-bajwa
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Rania Bajwa. All rights reserved.</p>
+  <div class="footer-socials">
+    <a href="https://www.instagram.com/raniidesigns" target="_blank" rel="noopener" title="Instagram">
+      <img src="instagram.png" alt="Instagram" class="footer-icon">
+    </a>
+    <a href="https://github.com/raniicodes" target="_blank" rel="noopener" title="GitHub">
+      <img src="github.png" alt="GitHub" class="footer-icon">
+    </a>
+    <a href="https://www.linkedin.com/in/rania-bajwa-70908138a/" target="_blank" rel="noopener" title="LinkedIn">
+      <img src="linkedin.png" alt="LinkedIn" class="footer-icon">
+    </a>
+    <a href="https://www.behance.net/raniabajwa" target="_blank" rel="noopener" title="Behance">
+      <img src="behance.png" alt="Behance" class="footer-icon">
+    </a>
+  </div>
+</footer>
+
+<script>
+  /* ── BINARY + ALPHABET FLOATING BACKGROUND ── */
+  (function () {
+    const canvas = document.getElementById('binaryCanvas');
+    const ctx = canvas.getContext('2d');
+    const hero = canvas.parentElement;
+
+    const CHAR_SIZE = 14;
+    const BASE_OPACITY = 0.055;
+    const MOUSE_RADIUS = 140;
+    const MOUSE_BOOST = 0.38;
+    const FADE_SPEED = 0.04;
+
+    const alphaPairs = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'.split('').reduce((acc, _, i, arr) => {
+      if (i % 2 === 0) acc.push(arr[i] + arr[i + 1]);
+      return acc;
+    }, []);
+    const binaryChars = ['0', '1', '01', '10', '110', '001', '11', '00'];
+    const pool = [...alphaPairs, ...alphaPairs, ...binaryChars, ...binaryChars, ...binaryChars];
+
+    let cols, rows, particles;
+    let mouse = { x: -9999, y: -9999 };
+
+    function resize() {
+      canvas.width = hero.offsetWidth;
+      canvas.height = hero.offsetHeight;
+      cols = Math.ceil(canvas.width / (CHAR_SIZE * 3.2));
+      rows = Math.ceil(canvas.height / (CHAR_SIZE * 2.4));
+      init();
+    }
+
+    function randomChar() {
+      return pool[Math.floor(Math.random() * pool.length)];
+    }
+
+    function init() {
+      particles = [];
+      for (let c = 0; c < cols; c++) {
+        for (let r = 0; r < rows; r++) {
+          particles.push({
+            x: (c + 0.5) * (canvas.width / cols),
+            y: (r + 0.5) * (canvas.height / rows),
+            char: randomChar(),
+            opacity: Math.random() * BASE_OPACITY,
+            targetOpacity: BASE_OPACITY * (0.4 + Math.random() * 0.6),
+            drift: (Math.random() - 0.5) * 0.18,
+            speed: 0.12 + Math.random() * 0.22,
+            timer: Math.random() * 180,
+            changeAt: 60 + Math.floor(Math.random() * 200),
+          });
+        }
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = `${CHAR_SIZE}px 'VT323', monospace`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      for (const p of particles) {
+        p.y += p.drift * 0.15;
+        if (p.y > canvas.height + CHAR_SIZE * 2) p.y = -CHAR_SIZE * 2;
+        if (p.y < -CHAR_SIZE * 2) p.y = canvas.height + CHAR_SIZE * 2;
+
+        p.timer++;
+        if (p.timer >= p.changeAt) {
+          p.char = randomChar();
+          p.timer = 0;
+          p.changeAt = 60 + Math.floor(Math.random() * 200);
+          p.targetOpacity = BASE_OPACITY * (0.3 + Math.random() * 0.7);
+        }
+
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        let target = p.targetOpacity;
+        if (dist < MOUSE_RADIUS) {
+          const influence = 1 - dist / MOUSE_RADIUS;
+          target = p.targetOpacity + MOUSE_BOOST * influence * influence;
+        }
+
+        if (p.opacity < target) {
+          p.opacity = Math.min(p.opacity + FADE_SPEED, target);
+        } else {
+          p.opacity = Math.max(p.opacity - FADE_SPEED * 0.5, target);
+        }
+
+        ctx.globalAlpha = Math.min(p.opacity, 1);
+        ctx.fillStyle = '#c47a8a';
+        ctx.fillText(p.char, p.x, p.y);
+      }
+
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+
+    // Track mouse relative to the hero element
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    hero.addEventListener('mouseleave', () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    });
+
+    resize();
+    draw();
+  })();
+</script>
+
+<script>
+  function openMenu() {
+    document.getElementById('mobileNav').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    document.getElementById('mobileNav').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function filterProjects(cat, btn) {
+    let parent = btn.parentElement;
+    parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.project-card').forEach(card => {
+      if (cat === 'all' || card.dataset.category === cat) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  function filterPastProjects(cat, btn) {
+    let parent = btn.parentElement;
+    parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.past-project-row').forEach(row => {
+      if (cat === 'all' || row.dataset.pastCategory === cat) {
+        row.style.display = 'grid';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+</script>
+</body>
+</html>
