@@ -574,6 +574,53 @@
     transform: scale(1.1);
   }
 
+  /* --- DARK MODE OVERRIDES --- */
+body.dark-mode {
+  --off-white: #121212;
+  --white: #1e1e1e;
+  --black: #f2c4ce; /* Pink becomes the primary text color */
+  --soft-black: #ffffff;
+  --mid: #cccccc;
+  --light-mid: #999999;
+  --border: #333333;
+}
+
+body.dark-mode nav {
+  background: rgba(18, 18, 18, 0.92);
+}
+
+body.dark-mode .project-card, 
+body.dark-mode .filter-btn, 
+body.dark-mode .skill-tag {
+  background: #1e1e1e;
+}
+
+/* Style for the toggle button */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--mid);
+}
+
+body.dark-mode .theme-toggle svg {
+  fill: var(--pink);
+}
+
   /* ── FOOTER ── */
   footer {
     border-top: 0.5px solid var(--border);
@@ -661,7 +708,13 @@
   <a href="#" class="nav-logo-container" onclick="window.location.reload();">
     <img src="computer.png" alt="Computer Logo" class="nav-logo-img">
   </a>
-  <ul class="nav-links">
+
+  <div style="display: flex; align-items: center; gap: 1rem; margin-left: auto; margin-right: 1.5rem;">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+      <img src="moon.png" alt="Toggle Theme" style="width:30px; height:40px;">
+    </button>
+    
+    <ul class="nav-links">
     <li><a href="#about">about</a></li>
     <li><a href="#projects">currently</a></li>
     <li><a href="#past">work</a></li>
@@ -1225,6 +1278,25 @@
       }
     });
   }
+
+  const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+
+// Check for saved preference
+if (localStorage.getItem('theme') === 'dark') {
+  body.classList.add('dark-mode');
+}
+
+themeToggle.addEventListener('click', () => {
+  body.classList.toggle('dark-mode');
+  
+  // Save preference
+  if (body.classList.contains('dark-mode')) {
+    localStorage.setItem('theme', 'dark');
+  } else {
+    localStorage.setItem('theme', 'light');
+  }
+});
 </script>
 </body>
 </html>
